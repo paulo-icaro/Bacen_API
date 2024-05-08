@@ -6,15 +6,6 @@
 
 
 
-# ------------------------- #
-# --- Links Importantes --- #
-# ------------------------- #
-# https://statplace.com.br/blog/trabalhando-com-api-no-r/
-# https://technologyadvice.com/blog/information-technology/how-to-use-an-api/
-# https://dadosabertos.bcb.gov.br/dataset/10844-indice-de-precos-ao-consumidor-amplo-ipca---servicos/resource/c0980df7-ad92-47af-b71c-790825f4710a
-
-
-
 # ---------------------------- #
 # --- Packages e Libraries --- #
 # ---------------------------- #
