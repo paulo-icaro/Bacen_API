@@ -14,6 +14,7 @@ library(httr)                               # Conectar com a API (Versao Base): 
 library(httr2)                              # Conectar com a API (Versao Moderna): https://httr2.r-lib.org/
 library(jsonlite)                           # Converter dados Json para um Objeto
 library(dplyr)                              # Biblioteca para manipulacao de dados
+library(svDialogs)                          # Biblioteca para exibir caixas de mensagens
 
 
 
