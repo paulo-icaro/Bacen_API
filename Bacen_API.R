@@ -1,6 +1,6 @@
-# ================================================ #
-# === FUNCAO DE COLETA DE DADOS - API DO BACEN === #
-# ================================================ #
+# =========================================== #
+# === DATA COLECTING FUNCTION - BACEN API === #
+# =========================================== #
 
 # --- Script by Paulo Icaro ---#
 
@@ -10,30 +10,30 @@
 # --- Packages e Libraries --- #
 # ---------------------------- #
 #install.packages(c('httr', 'httr2', 'jsonlite'))
-library(httr)                               # Conectar com a API (Versao Base): https://httr.r-lib.org/
-library(httr2)                              # Conectar com a API (Versao Moderna): https://httr2.r-lib.org/
-library(jsonlite)                           # Converter dados Json para um Objeto
-library(dplyr)                              # Biblioteca para manipulacao de dados
-library(svDialogs)                          # Biblioteca para exibir caixas de mensagens
+library(httr)                               # API Connection (Base Version): https://httr.r-lib.org/
+library(httr2)                              # API Connection (Modern Version): https://httr2.r-lib.org/
+library(jsonlite)                           # Convert Json data to an objetc
+library(dplyr)                              # Library for data manipulation
+library(svDialogs)                          # Library for displaying message boxes
 
 
 
-# ------------------------------ #
-# --- API - Funcao de Coleta --- #
-# ------------------------------ #
+# -------------------------------- #
+# --- API - Gathering Function --- #
+# -------------------------------- #
 
 bacen_api = function(url, httr = TRUE){
   message('Iniciando a conexao com a API do Bacen\n')
   flag = 0
   
-  # --- Conexao API - Utilizando httr --- #
+  # --- API Connection - Using httr --- #
   if(httr == TRUE){
     
-    # -- Conexao com API -- # 
+    # -- API Connection -- # 
     api_connection = GET(url = url)  
     
     
-    # --- Flag de Conexao --- #
+    # --- Connection Flag --- #
     if(api_connection$status_code == 200){
       dlg_message(message = 'Conexao bem sucedida ! \nDados sendo coletados ...\n', type = 'ok')
     } 
@@ -61,21 +61,21 @@ bacen_api = function(url, httr = TRUE){
     }
     
     
-    # --- Conversao dos Dados para Formato Legivel --- #
-    api_connection = rawToChar(api_connection$content)              # Conversao dos dados brutos (Raw) para formato de lista (JSon)
-    api_connection = fromJSON(api_connection, flatten = TRUE)       # Conversao dos dados em formato de lista (Json) para formato de tabela (Data Frame)
+    # --- Converting Data to a Readable Format --- #
+    api_connection = rawToChar(api_connection$content)              # Raw to Json
+    api_connection = fromJSON(api_connection, flatten = TRUE)       # Json to Data Frame
   }
   
   
   
-  # --- Conexao API - Utilizando httr2 --- #
+  # --- API Connection - Using httr2 --- #
   else{
     
-    # -- Conexao com API -- # 
+    # -- API Connection -- # 
     api_connection = request(base_url = url) %>% req_perform()
     
     
-    # --- Flag de Conexao --- #
+    # --- Connection Flag --- #
     if(api_connection$status_code == 200){
       dlg_message(message = 'Conexao bem sucedida ! \nDados sendo coletados ...\n', type  = 'ok')
     } 
@@ -103,9 +103,9 @@ bacen_api = function(url, httr = TRUE){
     }
 
     
-    # -- Conversao dos Dados para Formato Legivel  -- #
-    api_connection = rawToChar(api_connection$body)                 # Conversao dos dados brutos (Raw) para formato de lista (JSon)
-    api_connection = fromJSON(api_connection, flatten = TRUE)       # Conversao dos dados em formato de lista (Json) para formato de tabela (Data Frame)
+    # --- Converting Data to a Readable Format --- #
+    api_connection = rawToChar(api_connection$body)                 # Raw to JSon
+    api_connection = fromJSON(api_connection, flatten = TRUE)       # Json to Data Frame
   }
   
   

@@ -11,7 +11,7 @@
 # ----------------------------------------------------- #
 
 # Pre-settings #
-cod_bacen_seriess = name_bacen_series = NULL
+cod_bacen_series = name_bacen_series = NULL
 per_init_bacen_series = per_end_bacen_series = 0
 
 
