@@ -101,11 +101,14 @@ variable named ***httr*** indicating whether the user wants do use
 # -------------------------------- #
 
 # --- Libraries --- #
-library(devtools)                                           # Package for importing github scripts
+library(devtools)
 
 # --- Function --- #
 # Source the function from a github directory
 source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_API.R')
+
+# --- URL --- #
+ipca_br_url = 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01/01/2003&dataFinal=31/12/2023'
 
 # --- Acessing API Data --- #
 data = bacen_api(url = ipca_br_url, httr = TRUE)
@@ -126,3 +129,111 @@ Let’s see the results:
     8  01/08/2003  0.34
     9  01/09/2003  0.78
     10 01/10/2003  0.29
+
+<!-------------->
+<!--- PART 4 --->
+<!-------------->
+
+## Bacen_Form
+
+<p>
+
+      In this function the script asks the user some questions related
+with the data to be downloaded. Precisely, in the first step the user
+has to inform the series code and a short name for the series. Next, the
+user is asked whether it wants to inform another series. If yes the
+procedure repeats, otherwise then the second step is on. The console now
+asks the user the start and end date. These info are stored in four
+variables representing series code, series name, initial and final
+period. Combining this function with ***Bacen_URL*** yields the correct
+url for the data extraction process.
+
+</p>
+<!-------------->
+<!--- PART 5 --->
+<!-------------->
+
+## Combining all functions for data extraction
+
+<p>
+
+      Finally, let’s see the integration between the three functions in
+order to extract the data. For this example we are going to consider a
+group of four variables, which are the **Price Index** and the
+**Economic Activity Index** for, respectively, Brazil and the State of
+Ceará. The codes are, in this order, **433**, **24364**, **13005** and
+**25391**, and consider the following names, **ipca_br**, **ibc_br**,
+**ipca_for[^1]** and **ibc_ce**. The interval considered is (remember
+the Brazilian date format) 01/01/2003 to 31/12/2023.  
+      In the script bellow, the loop is according to the amount of
+variables specified by the users. Basically, it gathers each series data
+and then store them along with the others downloaded series. Have in
+mind that for generating this tutorial I needed to create the variables
+containing the codes, names e intervals, once there is no way to exhibit
+the questions that appears in the console. However, while reproducing
+this code in your machine, consider using the function ***Bacen_Form***
+as indicated in the script. Let’s get to work.
+
+</p>
+
+``` r
+# ---------------------------------------------------- #
+# --- Example - Data Extraction (Scripts Combined) --- #
+# ---------------------------------------------------- #
+
+# --- Libraries --- #
+library(devtools)
+
+
+# --- Function --- #
+# Sourcing functions from a github directory
+source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_URL.R')
+source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_API.R')
+
+
+# Attention ! #
+
+  # Run 
+  # Run the commented line bellow. Remember to correctly specify the series codes and the date interval.
+  # source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_Form.R')    # Insert previous info for data extraction
+
+  # Not Run
+  # Info inserted only to execute and render the script in this tutorial. Don't need to execute this in your R console.
+  cod_bacen_series = c('433', '13005', '24364', '25391')
+  name_bacen_series = c('ipca_br', 'ipca_for', 'ibc_br', 'ibcr_ce')
+  per_init_bacen_series = '01/01/2003'
+  per_end_bacen_series = '01/12/2023'
+
+
+
+# --- Data Extraction --- #
+bacen_series = NULL                       # Variable for storing the downloaded data
+for(i in 1:length(cod_bacen_series)){
+  bacen_series_raw = bacen_api(url = bacen_url(cod_bacen_series[i], per_init_bacen_series, per_end_bacen_series))
+
+  if(i == 1){bacen_series = bacen_series_raw}
+  else{bacen_series = cbind(bacen_series, bacen_series_raw[,2])}
+
+  if(i == length(cod_bacen_series)){
+    colnames(bacen_series) = c('data', name_bacen_series)
+    rm(bacen_series_raw, cod_bacen_series, name_bacen_series, per_init_bacen_series, per_end_bacen_series)
+  }
+}
+```
+
+The output is presented bellow:
+
+             data ipca_br ipca_for ibc_br ibcr_ce
+    1  01/01/2003    2.25     2.04 100.46  101.28
+    2  01/02/2003    1.57     2.04 102.12  100.92
+    3  01/03/2003    1.23     0.66 101.72  100.19
+    4  01/04/2003    0.97     1.59 101.08  100.41
+    5  01/05/2003    0.61     1.17  99.97  100.25
+    6  01/06/2003   -0.15    -0.22 100.14  101.38
+    7  01/07/2003    0.20    -0.05  98.92   99.22
+    8  01/08/2003    0.34     0.03  99.76   99.47
+    9  01/09/2003    0.78     0.40 101.70   98.62
+    10 01/10/2003    0.29     0.43 101.91   98.79
+
+[^1]: This index refers to the Fortaleza city which is the capital of
+    the State of Ceará.
