@@ -9,13 +9,15 @@
 # === Query === #
 # ============= #
 
-bacen_query = function(bacen_series_code, bacen_series_name, start_date, end_date){
+bacen_query = function(bacen_series_code, bacen_series_name, start_date, end_date, source_github = TRUE){
   
   # ----------------- #
   # --- Libraries --- #
   # ----------------- #
-  source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_API.R')
-  source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_URL.R')
+  if(source_github == TRUE){
+    source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_API.R')
+    source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_URL.R')
+  }
   
   
   # ----------------------- #
@@ -33,7 +35,7 @@ bacen_query = function(bacen_series_code, bacen_series_name, start_date, end_dat
     # --- Naming Headers --- #
     if(i == length(cod_bacen_series)){
       colnames(bacen_dataset) = c('data', name_bacen_series)
-      rm(bacen_dataset_raw, cod_bacen_series, name_bacen_series)
+      rm(bacen_dataset_raw, bacen_series_code, bacen_series_name)
     }
   }
   
