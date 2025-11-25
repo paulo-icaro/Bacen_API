@@ -37,4 +37,9 @@ bacen_query = function(bacen_series_code, bacen_series_name, start_date, end_dat
     }
   }
   
+  
+  # -------------------------- #
+  # --- Return Data Output --- #
+  # -------------------------- #
+  return(bacen_dataset)
 }
