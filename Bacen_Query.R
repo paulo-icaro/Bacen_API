@@ -16,8 +16,11 @@ bacen_query = function(bacen_series_code, bacen_series_name, start_date, end_dat
   if(source_github == TRUE){
     tryCatch(expr = suppressWarnings(source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_API.R')),
              error= function(e){message('Não foi possível acessar a função Bacen_API')})
+    Sys.sleep(1.5)
+    
     tryCatch(expr = suppressWarnings(source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_URL.R')),
              error = function(e){message('Não foi possível acessar a função Bacen_URL')})
+    Sys.sleep(1.5)
   }
   
   Sys.sleep(1.5)
