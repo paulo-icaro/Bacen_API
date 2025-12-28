@@ -23,93 +23,91 @@ library(svDialogs)                          # Library for displaying message box
 # -------------------------------- #
 
 bacen_api = function(url, httr = TRUE){
-  message('Iniciando a conexao com a API do Bacen\n')
   flag = 0
   
   # --- API Connection - Using httr --- #
   if(httr == TRUE){
     
     # -- API Connection -- # 
-    api_connection = GET(url = url)  
+    api_connection = tryCatch(expr = GET(url = url),
+                              error = function(e){return(NULL)})
     
     
-    # --- Connection Flag --- #
-    if(api_connection$status_code == 200){
-      dlg_message(message = 'Conexao bem sucedida ! \nDados sendo coletados ...\n', type = 'ok')
-    } 
-    else if(api_connection$status_code != 200){
-      while(api_connection$status_code != 200 & flag <= 3){
+    # --- Missed Connection - Extra Attempts --- #
+    if(api_connection$status_code != 200 || is.null(api_connection)){
+      while(flag < 3 & (api_connection$status_code != 200 || is.null(api_connection))){
         flag = flag + 1
-        
-        if(flag == 1){
-          Sys.sleep(2)
-          message('Problemas na conexao. \nTentando acessar a API novamente ...\n')}
-        if(flag == 2){
-          Sys.sleep(5)
-          message('Problemas na conexao. \nTentando acessar a API novamente ...\n')}
-        if(flag == 3){
-          Sys.sleep(10)
-          message('Problemas na conexao. \nTentando acessar a API uma última vez ...\n')}
-        
-        api_connection = GET(url = url)        
+        api_connection = tryCatch(expr = GET(url = url),
+                                  error = function(e){message('Falha na conexão. Tentando novamente ...\n')})
+        Sys.sleep(max(1.5, flag)) # Progressive delay
       }
       
-      ifelse(api_connection$status_code == 200,
-             dlg_message(message = 'Conexao bem sucedida ! \nDados sendo coletados ...\n', type = 'ok'),
-             dlg_message(message = 'Falha na conexao ! \nTente conectar com a API mais tarde.', type = 'ok')
-      )
+      # --- Fail Case --- #
+      if(flag == 3 && is.null(api_connection)){
+        message('Falha ao conectar com a API. Verifique sua conexão de internet.')
+      } else {
+        message('A API pode estar temporariamente indisponível. Tente novamente mais tarde.')
+      }
     }
+    
+    
+    # --- Successfull Case --- #
+    else{message('Conexão bem sucedida !\n')}
+    Sys.sleep(2)
     
     
     # --- Converting Data to a Readable Format --- #
     api_connection = rawToChar(api_connection$content)              # Raw to Json
     api_connection = fromJSON(api_connection, flatten = TRUE)       # Json to Data Frame
+    
+    
+    # --- Output --- #
+    return(api_connection)
   }
   
   
   
   # --- API Connection - Using httr2 --- #
-  else{
+  else if (httr == FALSE) {
     
     # -- API Connection -- # 
-    api_connection = request(base_url = url) %>% req_perform()
+    api_connection = tryCatch(expr = request(base_url = url) %>% req_perform(),
+                              error = function(e){return(NULL)})
     
     
-    # --- Connection Flag --- #
-    if(api_connection$status_code == 200){
-      dlg_message(message = 'Conexao bem sucedida ! \nDados sendo coletados ...\n', type  = 'ok')
-    } 
-    else if(api_connection$status_code != 200){
-      while(api_connection$status_code != 200 & flag <= 3){
+    # --- Missed Connection - Extra Attempts --- #
+    if(api_connection$status_code != 200 || is.null(api_connection)){
+      while(flag < 3 & (api_connection$status_code != 200 || is.null(api_connection))){
         flag = flag + 1
-        
-        if(flag == 1){
-          Sys.sleep(2)
-          message('Problemas na conexao. \nTentando acessar a API novamente ...\n')}
-        if(flag == 2){
-          Sys.sleep(5)
-          message('Problemas na conexao. \nTentando acessar a API novamente ...\n')}
-        if(flag == 3){
-          Sys.sleep(10)
-          message('Problemas na conexao. ! \nTentando acessar a API uma última vez ...\n')}
-        
-        api_connection = request(base_url = url) %>% req_perform()
+        api_connection = tryCatch(expr = GET(url = url),
+                                  error = function(e){message('Falha na conexão. Tentando novamente ...\n')})
+        Sys.sleep(max(1.5, flag)) # Progressive delay
       }
       
-      ifelse(api_connection$status_code == 200,
-             dlg_message(message = 'Conexao bem sucedida ! \nDados sendo coletados ...\n', type = 'ok'),
-             dlg_message(message = 'Falha na conexao ! \nTente conectar com a API mais tarde.', type = 'ok')
-      )
+      # --- Fail Case --- #
+      if(flag == 3 && is.null(api_connection)){
+        message('Falha ao conectar com a API. Verifique sua conexão de internet.')
+      } else {
+        message('A API pode estar temporariamente indisponível. Tente novamente mais tarde.')
+      }
     }
+    
+    
+    # --- Successfull Case --- #
+    else{message('Conexão bem sucedida !\n')}
+    Sys.sleep(2)
 
     
     # --- Converting Data to a Readable Format --- #
     api_connection = rawToChar(api_connection$body)                 # Raw to JSon
     api_connection = fromJSON(api_connection, flatten = TRUE)       # Json to Data Frame
+    
+    
+    # --- Output --- #
+    return(api_connection)  
   }
   
   
-  
-  # --- Output --- #
-  return(api_connection)
+  # --- Not specfified httr case --- #
+  else{message('Argumento httr inválido ! Use TRUE para httr ou FALSE para htrr2.')}
 }
