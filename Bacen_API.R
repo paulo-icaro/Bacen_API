@@ -58,7 +58,7 @@ bacen_api = function(url, httr = TRUE){
     
     # --- Converting Data to a Readable Format --- #
     api_connection = rawToChar(api_connection$content)              # Raw to Json
-    api_connection = fromJSON(api_connection, flatten = TRUE)       # Json to Data Frame
+    api_connection = fromJSON(api_connection, flatten = TRUE)       # Json to Dataframe
     
     
     # --- Output --- #
@@ -100,7 +100,7 @@ bacen_api = function(url, httr = TRUE){
     
     # --- Converting Data to a Readable Format --- #
     api_connection = rawToChar(api_connection$body)                 # Raw to JSon
-    api_connection = fromJSON(api_connection, flatten = TRUE)       # Json to Data Frame
+    api_connection = fromJSON(api_connection, flatten = TRUE)       # Json to Dataframe
     
     
     # --- Output --- #
