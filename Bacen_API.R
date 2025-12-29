@@ -79,7 +79,7 @@ bacen_api = function(url, httr = TRUE){
     if(api_connection$status_code != 200 || is.null(api_connection)){
       while(flag < 3 & (api_connection$status_code != 200 || is.null(api_connection))){
         flag = flag + 1
-        api_connection = tryCatch(expr = GET(url = url),
+        api_connection = tryCatch(expr = request(base_url = url) %>% req_perform(),
                                   error = function(e){message('Falha na conexão. Tentando novamente ...\n')})
         Sys.sleep(max(1.5, flag)) # Progressive delay
       }
@@ -110,4 +110,5 @@ bacen_api = function(url, httr = TRUE){
   
   # --- Not specfified httr case --- #
   else{message('Argumento httr inválido ! Use TRUE para httr ou FALSE para htrr2.')}
+
 }
