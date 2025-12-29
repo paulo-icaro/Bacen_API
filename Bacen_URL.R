@@ -19,12 +19,8 @@
 # --------------------------------- #
 # --- URL's Generation Function --- #
 # --------------------------------- #
-bacen_url = function(series_name, start_date, end_date){
-  url = 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.'
-
-  for(i in seq_along(series_name)){
-    bacen_url = paste0(url, series_name, '/dados?formato=json&dataInicial=', start_date, '&dataFinal=', end_date)
-  }
-  
+bacen_url = function(series_cod, start_date, end_date){
+  base_url = 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.'
+  bacen_url = paste0(base_url, series_cod, '/dados?formato=json&dataInicial=', start_date, '&dataFinal=', end_date)
   return(bacen_url)
 }

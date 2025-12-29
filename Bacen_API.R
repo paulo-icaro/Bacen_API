@@ -53,7 +53,7 @@ bacen_api = function(url, httr = TRUE){
     
     # --- Successfull Case --- #
     else{message('Conexão bem sucedida !\n')}
-    Sys.sleep(2)
+    Sys.sleep(1.5)
     
     
     # --- Converting Data to a Readable Format --- #
@@ -95,7 +95,7 @@ bacen_api = function(url, httr = TRUE){
     
     # --- Successfull Case --- #
     else{message('Conexão bem sucedida !\n')}
-    Sys.sleep(2)
+    Sys.sleep(1.5)
 
     
     # --- Converting Data to a Readable Format --- #
