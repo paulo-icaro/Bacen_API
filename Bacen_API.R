@@ -39,7 +39,7 @@ bacen_api = function(url, httr = TRUE){
         flag = flag + 1
         api_connection = tryCatch(expr = GET(url = url),
                                   error = function(e){message('Falha na conexão. Tentando novamente ...\n')})
-        Sys.sleep(max(1.5, flag)) # Progressive delay
+        Sys.sleep(max(1, flag)) # Progressive delay
       }
       
       # --- Fail Case --- #
@@ -53,7 +53,7 @@ bacen_api = function(url, httr = TRUE){
     
     # --- Successfull Case --- #
     else{message('Conexão bem sucedida !\n')}
-    Sys.sleep(1.5)
+    Sys.sleep(1)
     
     
     # --- Converting Data to a Readable Format --- #
@@ -81,7 +81,7 @@ bacen_api = function(url, httr = TRUE){
         flag = flag + 1
         api_connection = tryCatch(expr = request(base_url = url) %>% req_perform(),
                                   error = function(e){message('Falha na conexão. Tentando novamente ...\n')})
-        Sys.sleep(max(1.5, flag)) # Progressive delay
+        Sys.sleep(max(1, flag)) # Progressive delay
       }
       
       # --- Fail Case --- #
@@ -95,7 +95,7 @@ bacen_api = function(url, httr = TRUE){
     
     # --- Successfull Case --- #
     else{message('Conexão bem sucedida !\n')}
-    Sys.sleep(1.5)
+    Sys.sleep(1)
 
     
     # --- Converting Data to a Readable Format --- #
