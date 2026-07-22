@@ -117,7 +117,7 @@ tail(data, n = 10)
 {{< include includes/bacen_query.qmd >}}
 
 <p>
-|       This script concatenates both former functions. Besides the already known arguments from [**bacen_api**]('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_api.R') function, the researcher only has to inform two more items in order to proceed with the data extraction. First, one needs to inform the ***series_name*** and also decide whether sourcing the **bacen_url** and **bacen_api** functions from this library.
+|       This script concatenates both former functions. Besides the already known arguments from [**bacen_api**](https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_api.R) function, the researcher only has to inform two more items in order to proceed with the data extraction. First, one needs to inform the ***series_name*** and also decide whether sourcing the **bacen_url** and **bacen_api** functions from this library.
 |       Let's practice the data extraction:
 </p>
 
