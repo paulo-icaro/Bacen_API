@@ -88,7 +88,7 @@ done.
 # -------------------------------- #
 
 # --- Bacen_URL Function --- #
-source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_URL.R')    
+source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_url.R')    
 
 # --- Create URL --- #
 ipca_br_url = bacen_url(433, '01/01/2010', '31/12/2023')    # Generating the URL
@@ -152,7 +152,7 @@ the function.
 # -------------------------------- #
 
 # --- Bacen_API Function --- #
-source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_API.R')
+source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_api.R')
 
 # --- URL --- #
 ipca_br_url = 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01/01/2003&dataFinal=31/12/2023'
@@ -182,6 +182,28 @@ tail(data, n = 10)
 
 ## Bacen_Query
 
+<!------------------------------------------->
+
+<!--- Detalhamento Função Github Document --->
+
+<!------------------------------------------->
+
+``` r
+bacen_query (bacen_series_code, bacen_series_name, start_date, end_date, source_github = TRUE)
+```
+
+<!------------------------------->
+
+<!--- Detalhamento Função PDF --->
+
+<!------------------------------->
+
+<!-------------------------------->
+
+<!--- Detalhamento Função HTML --->
+
+<!-------------------------------->
+
 <p>
 
       This script concatenates both former functions. The researcher
@@ -191,7 +213,35 @@ function in order to proceed with the data extraction. Besides the
 already known arguments from
 [**bacen_api**]('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_api.R')
 function, the user has to provide two more items. First, one needs to
-inform the *series_name* and also decide whether sourcing the
-**bacen_url** and **bacen_api** functions from this library.
+inform the ***series_name*** and also decide whether sourcing the
+**bacen_url** and **bacen_api** functions from this library.  
+      Let’s practice the data extraction:
 
 </p>
+
+``` r
+# ----------------------- #
+# --- Data Extraction --- #
+# ----------------------- #
+
+# --- Bacen API Function --- #
+source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_query.R')
+
+# --- Previous Info --- #
+cod_bacen_series = c('25390', '4189', '3697', '433')
+name_bacen_series = c('ibcrce', 'selic_acum_anual', 'tx_cambio_mp', 'inflação_ipca')
+start_date = '01/01/2015'
+end_date = '31/12/2025'
+
+# --- Extraction --- #
+bacen_dataset = bacen_query(cod_bacen_series, name_bacen_series, start_date, end_date)
+tail(bacen_dataset)
+```
+
+              data ibcrce selic_acum_anual tx_cambio_mp inflação_ipca
+    127 01/07/2025 114.86            14.90       5.5279          0.26
+    128 01/08/2025 115.68            14.90       5.4463         -0.11
+    129 01/09/2025 114.42            14.90       5.3668          0.48
+    130 01/10/2025 112.74            14.90       5.3849          0.09
+    131 01/11/2025 107.38            14.90       5.3403          0.18
+    132 01/12/2025 106.83            14.90       5.4525          0.33
