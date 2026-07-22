@@ -206,15 +206,13 @@ bacen_query (bacen_series_code, bacen_series_name, start_date, end_date, source_
 
 <p>
 
-      This script concatenates both former functions. The researcher
-only has to inform a few argument the
-[**bacen_query**]('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_query.R')
-function in order to proceed with the data extraction. Besides the
+      This script concatenates both former functions. Besides the
 already known arguments from
 [**bacen_api**]('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_api.R')
-function, the user has to provide two more items. First, one needs to
-inform the ***series_name*** and also decide whether sourcing the
-**bacen_url** and **bacen_api** functions from this library.  
+function, researcher only has to inform two more items in order to
+proceed with the data extraction. First, one needs to inform the
+***series_name*** and also decide whether sourcing the **bacen_url** and
+**bacen_api** functions from this library.  
       Let’s practice the data extraction:
 
 </p>
@@ -239,9 +237,9 @@ tail(bacen_dataset)
 ```
 
               data ibcrce selic_acum_anual tx_cambio_mp inflação_ipca
-    127 01/07/2025 114.86            14.90       5.5279          0.26
-    128 01/08/2025 115.68            14.90       5.4463         -0.11
-    129 01/09/2025 114.42            14.90       5.3668          0.48
-    130 01/10/2025 112.74            14.90       5.3849          0.09
-    131 01/11/2025 107.38            14.90       5.3403          0.18
-    132 01/12/2025 106.83            14.90       5.4525          0.33
+    127 01/07/2025 114.73            14.90       5.5279          0.26
+    128 01/08/2025 115.55            14.90       5.4463         -0.11
+    129 01/09/2025 114.29            14.90       5.3668          0.48
+    130 01/10/2025 112.62            14.90       5.3849          0.09
+    131 01/11/2025 107.25            14.90       5.3403          0.18
+    132 01/12/2025 106.77            14.90       5.4525          0.33
