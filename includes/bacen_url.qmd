@@ -1,0 +1,26 @@
+<!------------------------------------------->
+<!--- Detalhamento Função Github Document --->
+<!------------------------------------------->
+:::{.content-visible when-format = 'gfm'}
+```r
+bacen_url (series_code, start_date, end_date)
+```
+:::
+  
+<!------------------------------->
+<!--- Detalhamento Função PDF --->
+<!------------------------------->
+:::{.content-visible when-format = 'pdf'}
+\begin{functioncard}
+\texttt{$\textbf{bacen\_url} (series\_code, start\_date, end\_date)$}
+\end{functioncard}
+:::
+  
+<!-------------------------------->
+<!--- Detalhamento Função HTML --->
+<!-------------------------------->
+:::{.content-visible when-format = 'html'}
+<div class = 'function_card'> 
+bacen_url (series_code, start_date, end_date)
+</div>
+:::
