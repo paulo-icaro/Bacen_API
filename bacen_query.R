@@ -14,11 +14,11 @@ bacen_query = function(bacen_series_code, bacen_series_name, start_date, end_dat
   # --- Source Auxiliary Functions --- #
   # ---------------------------------- #
   if(source_github == TRUE){
-    tryCatch(expr = suppressWarnings(source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_API.R')),
+    tryCatch(expr = suppressWarnings(source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_api.R')),
              error= function(e){message('Não foi possível acessar a função Bacen_API')})
     Sys.sleep(1.5)
     
-    tryCatch(expr = suppressWarnings(source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/Bacen_URL.R')),
+    tryCatch(expr = suppressWarnings(source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_url.R')),
              error = function(e){message('Não foi possível acessar a função Bacen_URL')})
     Sys.sleep(1.5)
   }
