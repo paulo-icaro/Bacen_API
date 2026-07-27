@@ -152,6 +152,21 @@ No exemplo abaixo, utilizamos a série do Índice Nacional de Preços ao Consumi
 - Lembre-se de que o padrão de datas adotado é o brasileiro (<strong>dd/mm/aaaa</strong>);<br>
 - Não se esqueça de informar as datas no formato <strong>character</strong> (entre aspas).</div>
 <p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------- #</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Example - URL Generation --- #</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------- #</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Bacen_URL Function --- #</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_url.R'</span>)    </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Create URL --- #</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ipca_br_url <span class="ot">=</span> <span class="fu">bacen_url</span>(<span class="dv">433</span>, <span class="st">'01/01/2010'</span>, <span class="st">'31/12/2023'</span>)    <span class="co"># Generating the URL</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ipca_br_url</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&amp;dataInicial=01/01/2010&amp;dataFinal=31/12/2023"</code></pre>
+</div>
+</div>
 <!-------------->
 <!-- PARTE 3 -->
 <!-------------->
@@ -175,6 +190,34 @@ No exemplo abaixo, utilizamos a série do Índice Nacional de Preços ao Consumi
 Em outras palavras, ela identifica se a conexão foi realizada com sucesso (<strong>código 200</strong>) ou se ocorreu algum erro, como <strong>400</strong> ou <strong>404</strong>. Caso a primeira tentativa falhe, a função realiza até três novas tentativas para estabelecer uma conexão válida. Durante esse processo, algumas mensagens informativas são exibidas ao usuário.<br>
 Os argumentos da função são a <strong>url</strong> e uma variável lógica denominada <strong>httr</strong>, que indica se a conexão deve ser realizada utilizando o pacote <em>httr</em> ou <em>httr2</em>. O exemplo a seguir ilustra sua utilização.</div>
 <p></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------- #</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Example - API Connection --- #</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------- #</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Bacen_API Function --- #</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_api.R'</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># --- URL --- #</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>ipca_br_url <span class="ot">=</span> <span class="st">'https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&amp;dataInicial=01/01/2003&amp;dataFinal=31/12/2023'</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Acessing API Data --- #</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">bacen_api</span>(<span class="at">url =</span> ipca_br_url, <span class="at">httr =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(data, <span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          data valor
+243 01/03/2023  0.71
+244 01/04/2023  0.61
+245 01/05/2023  0.23
+246 01/06/2023 -0.08
+247 01/07/2023  0.12
+248 01/08/2023  0.23
+249 01/09/2023  0.26
+250 01/10/2023  0.24
+251 01/11/2023  0.28
+252 01/12/2023  0.56</code></pre>
+</div>
+</div>
 <!-------------->
 <!-- PARTE 4 -->
 <!-------------->
@@ -199,22 +242,22 @@ O primeiro é <strong>series_name</strong>, utilizado para definir o nome que se
 Vamos agora realizar uma extração de dados utilizando essa função.</div>
 <p></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------- #</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Extração de Dados --- #</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------- #</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Função Bacen API --- #</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_query.R'</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Informações Prévias --- #</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>cod_bacen_series <span class="ot">=</span> <span class="fu">c</span>(<span class="st">'25390'</span>, <span class="st">'4189'</span>, <span class="st">'3697'</span>, <span class="st">'433'</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>name_bacen_series <span class="ot">=</span> <span class="fu">c</span>(<span class="st">'ibcrce'</span>, <span class="st">'selic_acum_anual'</span>, <span class="st">'tx_cambio_mp'</span>, <span class="st">'inflação_ipca'</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">=</span> <span class="st">'01/01/2015'</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">=</span> <span class="st">'31/12/2025'</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Extração --- #</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>bacen_dataset <span class="ot">=</span> <span class="fu">bacen_query</span>(cod_bacen_series, name_bacen_series, start_date, end_date)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(bacen_dataset)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------- #</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Extração de Dados --- #</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------- #</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Função Bacen API --- #</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_query.R'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Informações Prévias --- #</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>cod_bacen_series <span class="ot">=</span> <span class="fu">c</span>(<span class="st">'25390'</span>, <span class="st">'4189'</span>, <span class="st">'3697'</span>, <span class="st">'433'</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>name_bacen_series <span class="ot">=</span> <span class="fu">c</span>(<span class="st">'ibcrce'</span>, <span class="st">'selic_acum_anual'</span>, <span class="st">'tx_cambio_mp'</span>, <span class="st">'inflação_ipca'</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">=</span> <span class="st">'01/01/2015'</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">=</span> <span class="st">'31/12/2025'</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Extração --- #</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>bacen_dataset <span class="ot">=</span> <span class="fu">bacen_query</span>(cod_bacen_series, name_bacen_series, start_date, end_date)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(bacen_dataset)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          data ibcrce selic_acum_anual tx_cambio_mp inflação_ipca
 127 01/07/2025 114.73            14.90       5.5279          0.26
