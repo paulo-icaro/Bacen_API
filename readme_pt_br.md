@@ -91,14 +91,14 @@ aspas).
 </p>
 
 ``` r
-# -------------------------------- #
-# --- Example - URL Generation --- #
-# -------------------------------- #
+# --------------------------------- #
+# --- Examplo - Geração da URL  --- #
+# --------------------------------- #
 
-# --- Bacen_URL Function --- #
+# --- Função Bacen_URL --- #
 source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_url.R')    
 
-# --- Create URL --- #
+# --- Criar URL --- #
 ipca_br_url = bacen_url(433, '01/01/2010', '31/12/2023')    # Generating the URL
 ipca_br_url
 ```
@@ -154,17 +154,17 @@ Os argumentos da função são a **url** e uma variável lógica denominada
 </p>
 
 ``` r
-# -------------------------------- #
-# --- Example - API Connection --- #
-# -------------------------------- #
+# --------------------------------- #
+# --- Examplo - Conexão com API --- #
+# --------------------------------- #
 
-# --- Bacen_API Function --- #
+# --- Função Bacen_API --- #
 source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_api.R')
 
 # --- URL --- #
 ipca_br_url = 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01/01/2003&dataFinal=31/12/2023'
 
-# --- Acessing API Data --- #
+# --- Obtendo dados da API --- #
 data = bacen_api(url = ipca_br_url, httr = TRUE)
 tail(data, n = 10)
 ```
