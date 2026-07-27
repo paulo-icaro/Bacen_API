@@ -208,7 +208,7 @@ bacen_query (bacen_series_code, bacen_series_name, start_date, end_date, source_
 
       This script concatenates both former functions. Besides the
 already known arguments from
-[**bacen_api**]('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_api.R')
+[**bacen_api**](https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_api.R)
 function, the researcher only has to inform two more items in order to
 proceed with the data extraction. First, one needs to inform the
 ***series_name*** and also decide whether sourcing the **bacen_url** and
