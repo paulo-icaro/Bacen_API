@@ -60,6 +60,27 @@ editor: source
 </p>
 
 
+```{r}
+#| label: Bacen_URL
+#| echo: TRUE
+#| message: FALSE
+#| warning: FALSE
+#| comment: ''
+#| eval: TRUE
+
+# -------------------------------- #
+# --- Example - URL Generation --- #
+# -------------------------------- #
+
+# --- Bacen_URL Function --- #
+source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_url.R')    
+
+# --- Create URL --- #
+ipca_br_url = bacen_url(433, '01/01/2010', '31/12/2023')    # Generating the URL
+ipca_br_url
+```
+
+
 
 <!-------------->
 <!-- PARTE 3 -->
@@ -73,6 +94,30 @@ editor: source
 | Em outras palavras, ela identifica se a conexão foi realizada com sucesso (**código 200**) ou se ocorreu algum erro, como **400** ou **404**. Caso a primeira tentativa falhe, a função realiza até três novas tentativas para estabelecer uma conexão válida. Durante esse processo, algumas mensagens informativas são exibidas ao usuário.
 | Os argumentos da função são a **url** e uma variável lógica denominada **httr**, que indica se a conexão deve ser realizada utilizando o pacote *httr* ou *httr2*. O exemplo a seguir ilustra sua utilização.
 </p>
+
+
+```{r}
+#| label: Bacen_API
+#| echo: TRUE
+#| message: FALSE
+#| warning: FALSE
+#| comment: ''
+#| eval: TRUE
+
+# -------------------------------- #
+# --- Example - API Connection --- #
+# -------------------------------- #
+
+# --- Bacen_API Function --- #
+source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_api.R')
+
+# --- URL --- #
+ipca_br_url = 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01/01/2003&dataFinal=31/12/2023'
+
+# --- Acessing API Data --- #
+data = bacen_api(url = ipca_br_url, httr = TRUE)
+tail(data, n = 10)
+```
 
 
 

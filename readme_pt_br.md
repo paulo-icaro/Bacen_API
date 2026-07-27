@@ -90,6 +90,21 @@ aspas).
 
 </p>
 
+``` r
+# -------------------------------- #
+# --- Example - URL Generation --- #
+# -------------------------------- #
+
+# --- Bacen_URL Function --- #
+source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_url.R')    
+
+# --- Create URL --- #
+ipca_br_url = bacen_url(433, '01/01/2010', '31/12/2023')    # Generating the URL
+ipca_br_url
+```
+
+    [1] "https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01/01/2010&dataFinal=31/12/2023"
+
 <!-------------->
 
 <!-- PARTE 3 -->
@@ -137,6 +152,34 @@ Os argumentos da função são a **url** e uma variável lógica denominada
 *httr* ou *httr2*. O exemplo a seguir ilustra sua utilização.
 
 </p>
+
+``` r
+# -------------------------------- #
+# --- Example - API Connection --- #
+# -------------------------------- #
+
+# --- Bacen_API Function --- #
+source('https://raw.githubusercontent.com/paulo-icaro/Bacen_API/main/bacen_api.R')
+
+# --- URL --- #
+ipca_br_url = 'https://api.bcb.gov.br/dados/serie/bcdata.sgs.433/dados?formato=json&dataInicial=01/01/2003&dataFinal=31/12/2023'
+
+# --- Acessing API Data --- #
+data = bacen_api(url = ipca_br_url, httr = TRUE)
+tail(data, n = 10)
+```
+
+              data valor
+    243 01/03/2023  0.71
+    244 01/04/2023  0.61
+    245 01/05/2023  0.23
+    246 01/06/2023 -0.08
+    247 01/07/2023  0.12
+    248 01/08/2023  0.23
+    249 01/09/2023  0.26
+    250 01/10/2023  0.24
+    251 01/11/2023  0.28
+    252 01/12/2023  0.56
 
 <!-------------->
 
